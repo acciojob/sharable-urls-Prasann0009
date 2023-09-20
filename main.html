@@ -1,8 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <body>
-    <script type="text/javascript" src="./script.js">
-</script>
-  </body>
+<head>
+    <title>Sharable URLs</title>
+</head>
+<body>
+    <form id="urlForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year"><br><br>
+        
+        <input type="submit" id="button" value="Generate URL"><br><br>
+    </form>
+    
+    <h3 id="url">https://localhost:8080/</h3>
 
+    <script>
+        const urlForm = document.getElementById("urlForm");
+        const urlElement = document.getElementById("url");
+
+        urlForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const year = document.getElementById("year").value;
+
+            // Build the query string
+            let queryString = "";
+            if (name) {
+                queryString += `name=${encodeURIComponent(name)}&`;
+            }
+            if (year) {
+                queryString += `year=${encodeURIComponent(year)}`;
+            }
+
+            // Build the final URL
+            const baseUrl = "https://localhost:8080/";
+            const finalUrl = baseUrl + (queryString ? `?${queryString}` : "");
+
+            // Update the h3 element with the generated URL
+            urlElement.textContent = finalUrl;
+        });
+    </script>
+</body>
 </html>
+
